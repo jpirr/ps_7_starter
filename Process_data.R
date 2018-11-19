@@ -10,7 +10,8 @@ library(curl)
 library(kableExtra)
 library(lubridate)
 
-df <- read.csv("mt_2_results.csv") 
+df <- read.csv("mt_2_results.csv") %>% 
+  mutate(state = as.character(state))
 
 download.file(url = "https://goo.gl/ZRCBda", destfile = "master.zip", quiet = TRUE, mode = "wb")
 
@@ -31,9 +32,11 @@ wave3 <- newps7 %>%
   mutate(state_district = str_sub(source, -10, -7)) %>% 
   mutate(state = str_sub(source, -10, -9)) %>% 
   mutate(district = str_sub(source, -8, -7)) %>% 
-  select(wave, state_district, state, district) %>%  
+  #select(wave, state_district, state, district) %>%  
   mutate(state = toupper(state))
 
-both <- left_join((wave3, df, by = "state"))
+both <- left_join(wave3, df, by = "state")
+
+
 
          
