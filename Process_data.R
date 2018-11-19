@@ -28,6 +28,9 @@ newps7 <- ps7start %>%
 wave3 <- newps7 %>%  
   mutate(wave = str_sub(source, start = -5, end = -5)) %>%  
   filter(wave == 3) %>% 
-  mutate(state_district = str_sub(source, -10, -7))
+  mutate(state_district = str_sub(source, -10, -7)) %>% 
+  mutate(state = str_sub(source, -10, -9)) %>% 
+  mutate(district = str_sub(source, -8, -7)) %>% 
+  select(wave, state_district, state, district)
 
          
